@@ -23,6 +23,14 @@ services:
       timeout: 5s
       retries: 5
 
+  openfga-migration:
+    image: openfga/openfga:v0.3.6
+    command: ["migrate", "--datastore-engine", "postgres", "--datastore-uri", "postgres://openfga:openfga@db:5432/openfga_db"]
+    depends_on:
+      db:
+        condition: service_healthy
+    restart: 'no'
+
   openfga:
     image: openfga/openfga:v0.3.6
     command: ["run"]

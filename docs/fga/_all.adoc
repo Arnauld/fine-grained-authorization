@@ -43,3 +43,73 @@
 3+| *all members of the eng team are maintainers of the Acme repository*
 
 |===
+
+== Models
+
+Playground: http://localhost:3000/playground
+
+[source,raw]
+....
+model
+  schema 1.1
+type user
+type document
+  relations
+    define owner: [device]
+    define can_read: can_read from owner
+type device
+  relations
+    define group: [group]
+    define can_read: can_read from group
+type group
+  relations
+    define member: [user,user:*,group#member]
+    define can_read: member or member from parent
+    define parent: [group]
+....
+
+Sample tuples:
+
+[%header,cols="1,1,1"]
+|===
+| User
+| Relation
+| Object
+
+| user:anne
+| member
+| group:support
+
+| device:VA_ALO
+| owner
+| document:val001
+
+| device:VA_ALO
+| owner
+| document:val002
+
+| group;support
+| group
+| device:VA_ALO
+
+|===
+
+
+Queries
+
+[source,raw]
+....
+is user:anne related to document:val001 as can_read?
+
+yes!
+....
+
+image::query_sample001.png[]
+
+
+[source,raw]
+....
+is user:anne related to document:val001 as can_read?      YES
+is user:anne related to device:VA_ALO as can_read?        YES
+is group:support related to device:VA_ALO as can_read?    NO ?!?
+....
