@@ -1,0 +1,41 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:12.6-alpine
+    command: ["postgres", "-c", "log_statement=all", "-c", "shared_preload_libraries=pg_stat_statements"]
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-changeme}
+      PGDATA: /data/postgres
+    volumes:
+      - postgres:/data/postgres
+      - ./initdb/scripts:/initdb
+      - ./initdb/initdb.sh:/docker-entrypoint-initdb.d/initdb.sh
+    expose:
+      - 5432
+    ports:
+      - "7001:5432"
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  openfga:
+    image: openfga/openfga:v0.3.6
+    command: ["run"]
+    ports:
+      - "8080:8080"
+      - "8081:8081"
+      - "3000:3000"
+    volumes:
+      - ./openfga/config.yaml:/etc/openfga/config.yaml
+    depends_on:
+      db:
+        condition: service_healthy
+    restart: unless-stopped
+
+volumes:
+  postgres:

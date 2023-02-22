@@ -1,0 +1,7 @@
+datastore:
+  engine: postgres
+  uri: postgres://openfga:openfga@db:5432/openfga_db
+authn:
+  method: preshared
+  preshared:
+    keys: ["key1", "key2"]

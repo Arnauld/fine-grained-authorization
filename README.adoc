@@ -1,0 +1,42 @@
+== Dev. notes
+
+
+== Generate doc
+
+[source,shell]
+....
+$ docker run -it -v $(pwd)/docs/:/documents/ asciidoctor/docker-asciidoctor:1.39.0
+....
+
+
+[source,shell]
+....
+$ export DOC=fga
+$ asciidoctor-pdf -v -t --trace -r asciidoctor-diagram -a pdf-theme=theme.yml \
+         $DOC/_all.adoc --out-file out/$DOC-"`date +"%Y%m%d_%H%M_%s"`".pdf
+....
+
+
+
+== Resources
+
+Seminal Paper
+
+* Annotated Zanzibar paper: https://zanzibar.tech/
+* https://zanzibar.academy/
+
+Misc
+
+* https://authzed.com/blog/writing-relationships-to-spicedb/
+* Quarkus
+** https://developers.redhat.com/articles/2023/01/11/fine-grained-authorization-quarkus-microservices#quarkus_integration
+
+Provider/Implementation
+
+* Auth0 - OpenFGA - https://openfga.dev/
+** https://github.com/openfga/openfga.dev
+* Authzed - SpiceDB - https://authzed.com/docs
+** https://github.com/authzed/spicedb
+** https://github.com/authzed/awesome-spicedb
+* Permify - https://permify.co/
+** https://docs.permify.co/docs/getting-started/modeling

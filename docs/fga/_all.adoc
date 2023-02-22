@@ -1,0 +1,45 @@
+= Obfuscated ID - v1.0
+:imagesdir: ./
+:chapter-label:  
+:icons: font
+:source-highlighter: rouge
+:sectnums:
+:sectnumlevels: 5
+:doctype: article
+:math:
+:imagesoutdir: generated_images
+:stem: latexmath
+
+== DSL
+
+.Zanzibar Grammar
+[source,raw]
+....
+<tuple> ::= <object>'#'<relation>'@'<user>
+<object> ::= <namespace>':'<object_id>
+<user> ::= <user_id> | <userset>
+<userset> ::= <object>'#'<relation>
+....
+
+`issue:412#reporter@alice`
+
+[%header,cols="1,1,1"]
+|===
+| `<object>`
+| `#<relation>`
+| `@<user>`
+
+3+| `issue:412#reporter@alice`
+| `issue:412`
+| `reporter`
+| `alice`
+3+| *Alice is the reporter of issue 412*
+
+
+3+| `repo:acme#maintainer@team:eng#member`
+| `repo:acme`
+| `maintainer`
+| `team:eng#member`
+3+| *all members of the eng team are maintainers of the Acme repository*
+
+|===

@@ -1,0 +1,41 @@
+## https://github.com/asciidoctor/asciidoctor-pdf/blob/master/docs/theming-guide.adoc
+extends: default
+code:
+  font-size: 9
+footer:
+  recto:
+    right:
+      content: '{section-or-chapter-title} | *{page-number}* / {page-count}'
+  verso:
+    left:
+      content: '*{page-number}* / {page-count} | {section-or-chapter-title}'
+title-page:
+  font-color: #1896D3
+  logo:
+    image: image:logo.png[pdfwidth=25%]
+  title:
+    font-color: #1896D3
+    top: 30%
+heading:
+  font-color: #1896D3
+table:
+  head:
+    background-color: #f0f0f0
+role:
+  regular:
+    font-color: #09187a
+  green:
+    font-color: #097a18
+  orange:
+    font-color: #e3a41e
+  yellow:
+    font-color: #FFCC00
+  warning:
+    font-color: #FFCC00
+    background-color: #000
+  red:
+    font-color: #731a10
+blockquote:
+  font-size: 10
+  font-color: #888888
+  font-style: italic
