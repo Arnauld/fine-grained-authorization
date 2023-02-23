@@ -99,9 +99,7 @@ Queries
 
 [source,raw]
 ....
-is user:anne related to document:val001 as can_read?
-
-yes!
+is user:anne related to document:val001 as can_read?      YES!
 ....
 
 image::query_sample001.png[]
@@ -113,3 +111,34 @@ is user:anne related to document:val001 as can_read?      YES
 is user:anne related to device:VA_ALO as can_read?        YES
 is group:support related to device:VA_ALO as can_read?    NO ?!?
 ....
+
+=== Adjustement 1
+
+[source,diff]
+....
+model
+  schema 1.1
+type user
+type document
+  relations
+    define owner: [device]
+    define can_read: can_read from owner
+type device
+  relations
+    define group: [group]
+-    define can_read: can_read from group
++    define can_read: group or can_read from group
+type group
+  relations
+    define member: [user,user:*,group#member]
+    define can_read: member or member from parent
+    define parent: [group]
+....
+
+[source,raw]
+....
+is user:anne related to document:val001 as can_read?      YES
+is user:anne related to device:VA_ALO as can_read?        YES
+is group:support related to device:VA_ALO as can_read?    YES
+....
+

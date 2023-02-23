@@ -1,0 +1,11 @@
+{
+  "name": "fga-sandbox",
+  "version": "1.0.0",
+  "description": "Fine Grained Authorization Sandox",
+  "main": "index.js",
+  "author": "Arnauld",
+  "license": "MIT",
+  "dependencies": {
+    "@openfga/sdk": "^0.2.2"
+  }
+}
